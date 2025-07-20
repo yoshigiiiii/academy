@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よしぎ塾 -AI×SNSラボ- | 令和の人生攻略ツール</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@200;400;600&family=Noto+Serif+JP:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'EB Garamond', 'Noto Serif JP', serif;
+            font-weight: 200;
+            line-height: 1.8;
+            color: #e5e7eb;
+            background-color: #0f0f0f;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #e5e7eb;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #fbbf24;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #e5e7eb;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-bg.active {
+            opacity: 0.3;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.5; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 200;
+            color: white;
+            text-align: left;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .cta-button-container {
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            line-height: 1.4;
+            max-width: 350px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .campaign-text {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .campaign-note {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #0f0f0f;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            font-weight: 200;
+        }
+
+        .section-description {
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #9ca3af;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #d1d5db;
+            margin-bottom: 2rem;
+        }
+
+        .achievement-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .achievement-list li {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .achievement-list li:before {
+            content: "✓";
+            color: #fbbf24;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .problem-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .problem-list li {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .problem-list li:before {
+            content: "•";
+            color: #fbbf24;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .card-description {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        /* Why AI SNS Section */
+        .why-ai-sns {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+        }
+
+        .why-ai-sns .section-title,
+        .why-ai-sns .section-description,
+        .why-ai-sns .section-text {
+            color: white;
+        }
+
+        /* Problems Section */
+        .problems {
+            background: #111827;
+        }
+
+        /* Features Section */
+        .features {
+            background: #0f0f0f;
+        }
+
+        /* Curriculum Section */
+        .curriculum {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+        }
+
+        /* Community Section */
+        .community {
+            background: #0f0f0f;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+        }
+
+        .testimonials .section-title,
+        .testimonials .section-description {
+            color: white;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .testimonial-name {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-role {
+            font-size: 1rem;
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: #d1d5db;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .pricing .section-title,
+        .pricing .section-description {
+            color: white;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 400;
+            margin: 1rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: rgba(15, 15, 15, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.3);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .hero-content {
+                padding: 1rem;
+                height: calc(100vh - 100px);
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .cta-button {
+                max-width: 100%;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">よしぎ塾 -AI×SNSラボ-</div>
+            <ul class="nav-menu">
+                <li><a href="#why-ai-sns">なぜAI×SNS</a></li>
+                <li><a href="#problems">課題</a></li>
+                <li><a href="#features">特徴</a></li>
+                <li><a href="#curriculum">カリキュラム</a></li>
+                <li><a href="#community">コミュニティ</a></li>
+                <li><a href="#testimonials">モニター生の声</a></li>
+                <li><a href="https://line.me/ti/g2/I7ptP0IjKoUEuL04MvDdbkzTTNHLNEJ3EKGgVQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank">お申し込み</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img class="hero-bg active" src="https://picsum.photos/1920/1080?random=1" alt="Background 1">
+        <img class="hero-bg" src="https://picsum.photos/1920/1080?random=2" alt="Background 2">
+        <img class="hero-bg" src="https://picsum.photos/1920/1080?random=3" alt="Background 3">
+        
+        <div class="particles" id="particles"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">よしぎ塾<br>-AI×SNSラボ-</h1>
+            <p class="hero-subtitle fade-in">令和の人生攻略ツール "AIとSNS"で<br>キャリアを加速させる新時代サロン</p>
+            <div class="cta-button-container fade-in">
+    <a href="https://line.me/ti/g2/I7ptP0IjKoUEuL04MvDdbkzTTNHLNEJ3EKGgVQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" class="cta-button" target="_blank">
+        1日たった99円で<br>コミュニティに参加する
+    </a>
+</div>
+        </div>
+    </section>
+
+    <!-- Why AI SNS Section -->
+    <section id="why-ai-sns" class="section why-ai-sns">
+        <h2 class="section-title fade-in">なぜ令和はAIとSNSなのか</h2>
+        
+        <div class="fade-in">
+    <p class="section-text">
+        朝の通勤電車で ChatGPT に一行打つだけで、企画書の骨子が30秒で返ってくる。そんな時代になりました。
+    </p>
+    <p class="section-text">
+        AIを手足のように操る人は、AIにできることはAIに任せ、浮いた時間を自分の"好きや得意"に全集中。自分の力を磨き上げ、それをSNSで発信することで「この人にお願いしたい」と選ばれていく。
+    </p>
+    <p class="section-text">
+        逆にAIを使いこなせなければ、作業に追われ、時間を奪われ、土俵にも立てない。
+    </p>
+    <p class="section-text">
+        つまり「AIで時間を生み、SNSで"個"を証明する者」が抜きん出る。そんな時代だと確信しています。
+    </p>
+    <p class="section-text">
+        実際に私が育児をしながら、AIとSNSをフル活用した結果がこちらです▼
+    </p>
+    
+    <ul class="achievement-list">
+        <li>1週間かかっていた講義資料や提案書作成を1日に短縮</li>
+        <li>フォロワー数を5か月で＋40,000人（X、Threads合わせて）</li>
+        <li>運用代行のアカウントも5か月でフォロワー＋27,000人</li>
+        <li>AIで作成した1投稿でフォロワー＋1000人超え多数</li>
+        <li>渋谷109での講演など複数イベントに登壇</li>
+        <li>「SNS発信」「SNS運用代行」「イベント講演」「法人向け研修」「オンラインサロン事業立ち上げ」など複数プロジェクトを同時並行で推進</li>
+    </ul>
+    
+    <p class="section-text">
+        これらが出来たのも全て「AI」と「SNS」のおかげです。僕はAIとSNSのおかげで人生が本当に変わりました。 このコミュニティはこの「AI」と「SNS」を"低価格"で同時に学べる他にはないオンラインコミュニティになっています。
+    </p>
+</div>
+    </section>
+
+    <!-- Problems Section -->
+    <section id="problems" class="section problems">
+        <h2 class="section-title fade-in">こんな課題を感じていませんか？</h2>
+        
+        <div class="fade-in">
+            <ul class="problem-list">
+                <li>AIの進化が早すぎて結局何を使ったらいいかわからない</li>
+                <li>AIの進化を常にレクチャーしてくれる環境に身を置きたい</li>
+                <li>AIを学びたいけど、学ぶには50万や100万円といった高額なスクールばかり</li>
+                <li>SNSを使って個の時代を生き抜く発信力が欲しい</li>
+                <li>SNSの発信をしているが、伸びる投稿を作成するのに苦労している</li>
+            </ul>
+            
+            <p class="section-text">
+                AIを学ぼうと思っても、周りは50万円や100万円といった高額な商材ばかり…<br>
+                なかには詐欺のような商材も。そんな状況を打破するためにも安価で学べる環境を作りました。
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section features">
+        <h2 class="section-title fade-in">3つの特徴</h2>
+        <p class="section-description fade-in">よしぎ塾が選ばれる理由をご紹介します。他にはない独自の学習環境で、あなたの成長を全力でサポートします。</p>
+        
+        <div class="cards-container">
+            <div class="card slide-in-left">
+                <img class="card-image" src="https://picsum.photos/400/250?random=7" alt="唯一無二の環境">
+                <div class="card-content">
+                    <h3 class="card-title">唯一無二の学習環境</h3>
+                    <p class="card-description">AI・SNSの2つのスキルを掛け合わせて学べる、他にはないコミュニティです。単体ではなく、相乗効果を生み出す学習設計。</p>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <img class="card-image" src="https://picsum.photos/400/250?random=8" alt="良心的な価格">
+                <div class="card-content">
+                    <h3 class="card-title">良心的な価格設定</h3>
+                    <p class="card-description">月額5,000円以内、入会金0円で質の高い学習を提供。数十万円のスクールに入る必要はありません。学びたい気持ちを大切にします。</p>
+                </div>
+            </div>
+            <div class="card slide-in-right">
+                <img class="card-image" src="https://picsum.photos/400/250?random=9" alt="温かいコミュニティ">
+                <div class="card-content">
+                    <h3 class="card-title">温かいコミュニティ</h3>
+                    <p class="card-description">同じビジョンを持つ仲間と出会える、前向きで温かい学びの場。定期的な交流会やオフ会で、リアルなつながりも育みます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="section curriculum">
+    <h2 class="section-title fade-in">学べること</h2>
+    <p class="section-description fade-in">体系的に設計されたカリキュラムで、基礎から応用まで段階的にスキルアップ。実践的な課題を通じて、確実に力を身につけます。</p>
+    
+    <div class="cards-container">
+        <div class="card fade-in">
+            <img class="card-image" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-06-27%20235822-S4cH88tAgGz6EopcTyKOw0xJtbt9jL.png" alt="AIで作業時間を半分にする仕事術">
+            <div class="card-content">
+                <h3 class="card-title">AIで作業時間を半分にする仕事術</h3>
+                <p class="card-description">AIを活用した情報収集術、資料作成術、SNSの投稿作成、画像生成、LP作成など幅広いAI活用術を学べます。さらにその際に利用するプロンプトなども惜しみなくお伝えしてきます。</p>
+            </div>
+        </div>
+        <div class="card fade-in">
+            <img class="card-image" src="https://picsum.photos/400/250?random=11" alt="SNSを伸ばすノウハウ">
+            <div class="card-content">
+                <h3 class="card-title">SNSを伸ばすノウハウ（X、Threadsがメイン）</h3>
+                <p class="card-description">「投稿しているけどなかなか伸びない」「投稿が伸びてもフォローされない」といった課題を解決できるよう、プロフィールの設計から伸びる投稿作成、運用ノウハウを学べます。さらに豪華インフルエンサーとのコラボウェビナーも予定しています。</p>
+            </div>
+        </div>
+        <div class="card fade-in">
+            <img class="card-image" src="https://picsum.photos/400/250?random=12" alt="+α人間力">
+            <div class="card-content">
+                <h3 class="card-title">＋α人間力（ビジネス基礎力）</h3>
+                <p class="card-description">AIが進化すればするほど、使う側の人間力が試されます。特に「コミュ力」や「資料作成力」、「思考力」や「マインド」は必要不可欠です。経営コンサルや起業での経験から、僕で伝えられることは惜しみなくお伝えしていきます。このコミュニティから起業・独立する人がたくさん出てくればいいなと思っています。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Community Section -->
+    <section id="community" class="section community">
+        <h2 class="section-title fade-in">コミュニティ体験</h2>
+        <p class="section-description fade-in">学習だけでなく、メンバー同士の交流や相互支援を通じて、一人では得られない成長体験を提供します。</p>
+        
+        <div class="cards-container">
+            <div class="card slide-in-left">
+                <img class="card-image" src="https://picsum.photos/400/250?random=13" alt="オンライン交流">
+                <div class="card-content">
+                    <h3 class="card-title">オンライン交流</h3>
+                    <p class="card-description">24時間アクセス可能なコミュニティスペースで、質問や相談、成果共有を自由に行えます。メンバー同士の活発な議論が学びを深めます。</p>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <img class="card-image" src="https://picsum.photos/400/250?random=16" alt="仕事のマッチング">
+                <div class="card-content">
+                    <h3 class="card-title">仕事のマッチング</h3>
+                    <p class="card-description">AI関連・SNS関連など、様々な仕事を受発注できる環境を提供。学ぶだけでなく、この環境でマネタイズすることも可能です。</p>
+                </div>
+            </div>
+            <div class="card slide-in-right">
+                <img class="card-image" src="https://picsum.photos/400/250?random=15" alt="リアルイベント">
+                <div class="card-content">
+                    <h3 class="card-title">リアルイベント</h3>
+                    <p class="card-description">オフライン交流会、ワークショップ、ゲストスピーカーイベントなど、リアルな出会いと学びの機会を定期的に開催。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section testimonials">
+        <h2 class="section-title fade-in">モニター生の声</h2>
+        
+        <div class="fade-in">
+            <div class="testimonial-card">
+                <div class="testimonial-name">島さん</div>
+                <div class="testimonial-role">美容系インフルエンサー</div>
+                <div class="testimonial-text">
+                    「"若い子に刺さるワード"を選ぶのが勝負なのに、ネタが浮かばない日は半日うんうん唸って終わる――そんな悩みをよしぎ塾で相談したら、私専用にカスタマイズされた 美容特化 GPTs をまるっと作っていただきました。生成される切り口も語彙も『これ、自分じゃ絶対思いつかない！』の連続で、思わず『こんな面白いもの作ってもらっていいの!?』と声が出るほど。実際にそのプロンプトでツイートしたら インプレッション380万 を記録。バズり慣れているはずの私でも鳥肌が立つ結果でした。"AI×SNS"の破壊力をここまで体感できたのは初めて。今では企画会議の相棒として GPTs が手放せません。」
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-name">平井さん</div>
+                <div class="testimonial-role">占い講師</div>
+                <div class="testimonial-text">
+                    「マンツーマンで講座を提供している中で、母の入院まで重なり、深夜 2 時まで X の投稿をひねり出す日々。よしぎさんが私専用の ChatGPTのプロンプトを組んでくださったおかげで、投稿案が 10 分で 5 本出るようになり、久しぶりに泣くほど感動しました。睡眠時間が増えて心も体もラクに。あまりに役立つので自分の受講生たちにも塾の存在を宣伝しまくっています。」
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-name">遠藤さん</div>
+                <div class="testimonial-role">人事職</div>
+                <div class="testimonial-text">
+                    「正直、ノウハウは世の中に溢れています。でもよしぎさんと話すとなぜか"やってみよう"と動ける。言葉遣いや空気感がとにかく温かく、いつも元気をもらえます。"人として信用できる" ってこういうことなんだと感じました。」
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-name">諸角さん</div>
+                <div class="testimonial-role">AIコンサルタント</div>
+                <div class="testimonial-text">
+                    「クライアント向けに AI 導入支援をしている自分でも、"よしぎ塾の AI 活用術" は毎回 新しい気づきの連続でした。アイデアの企画から提案資料の作成まで、あらゆる工程で AI をフル活用。しかもプロンプトが洗練されていて、コピーして少し調整するだけで即実務レベルになるのが本当にありがたい。独立を決めたばかりで吸収モード全開の私にとっては、どれも"そのままクライアントワークに転用できる"ネタばかりでした。さらに、よしぎさんの 明るい人柄に毎回元気をもらえる のも大きな価値。『学びとエネルギー補給が同時にできる場』――まさにそんな場所です。いつもありがとうございます！」
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section pricing">
+        <h2 class="section-title fade-in">料金プラン</h2>
+        <p class="section-description fade-in">良心的な価格で、質の高い学習環境を提供します。</p>
+        
+        <div class="price-card fade-in">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem;">月額プラン</h3>
+            <div class="price">¥2,980<span style="font-size: 1rem;">/月</span></div>
+            <ul style="text-align: left; margin: 2rem 0;">
+                <li>✓ 全カリキュラムへのアクセス</li>
+                <li>✓ コミュニティ参加権</li>
+                <li>✓ リアルイベント参加権</li>
+                <li>✓ 24時間質問サポート</li>
+            </ul>
+            <div class="cta-button-container">
+    <a href="https://line.me/ti/g2/I7ptP0IjKoUEuL04MvDdbkzTTNHLNEJ3EKGgVQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" class="cta-button" target="_blank">
+        1日たった99円で<br>コミュニティに参加する
+    </a>
+</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#why-ai-sns">なぜAI×SNS</a>
+                <a href="#problems">課題</a>
+                <a href="#curriculum">カリキュラム</a>
+                <a href="#community">コミュニティ</a>
+                <a href="#testimonials">モニター生の声</a>
+                <a href="#pricing">料金</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">利用規約</a>
+                <a href="#">お問い合わせ</a>
+            </div>
+            <p>&copy; 2025 よしぎ塾 -AI×SNSラボ-. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // Hero Background Image Rotation
+        const heroImages = document.querySelectorAll('.hero-bg');
+        let currentImageIndex = 0;
+
+        function rotateHeroImages() {
+            heroImages[currentImageIndex].classList.remove('active');
+            currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+            heroImages[currentImageIndex].classList.add('active');
+        }
+
+        setInterval(rotateHeroImages, 5000);
+
+        // Particle Animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animation elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 15, 15, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(15, 15, 15, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Initialize animations for elements in viewport
+        setTimeout(() => {
+            document.querySelectorAll('.hero .fade-in').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 200);
+            });
+        }, 500);
+    </script>
+</body>
+</html>
