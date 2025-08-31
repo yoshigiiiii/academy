@@ -21,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* Header */
         .header {
             position: fixed;
             top: 0;
@@ -78,7 +77,6 @@
             transition: 0.3s;
         }
 
-        /* Hero Section */
         .hero {
             height: 100vh;
             position: relative;
@@ -199,7 +197,6 @@
             font-size: 0.8rem;
         }
 
-        /* Section Styles */
         .section {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -299,6 +296,7 @@
             width: 100%;
             height: 250px;
             object-fit: cover;
+            background: linear-gradient(135deg, #374151, #1f2937);
         }
 
         .card-content {
@@ -317,7 +315,6 @@
             line-height: 1.6;
         }
 
-        /* Why AI SNS Section */
         .why-ai-sns {
             background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
             color: white;
@@ -329,28 +326,23 @@
             color: white;
         }
 
-        /* Problems Section */
         .problems {
             background: #111827;
         }
 
-        /* Features Section */
         .features {
             background: #0f0f0f;
         }
 
-        /* Curriculum Section */
         .curriculum {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
         }
 
-        /* Community Section */
         .community {
             background: #0f0f0f;
         }
 
-        /* Testimonials Section */
         .testimonials {
             background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             color: white;
@@ -370,17 +362,50 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
         .testimonial-name {
             font-size: 1.2rem;
             font-weight: 400;
             color: #fbbf24;
-            margin-bottom: 0.5rem;
+            margin-right: 1rem;
         }
 
-        .testimonial-role {
-            font-size: 1rem;
-            color: #9ca3af;
+        .testimonial-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid #fbbf24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fbbf24;
+            overflow: hidden;
+        }
+
+        .testimonial-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .testimonial-headline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fbbf24;
             margin-bottom: 1rem;
+            line-height: 1.4;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .testimonial-text {
@@ -389,7 +414,6 @@
             font-size: 1rem;
         }
 
-        /* Pricing Section */
         .pricing {
             background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             color: white;
@@ -417,7 +441,6 @@
             margin: 1rem 0;
         }
 
-        /* Footer */
         .footer {
             background: #000000;
             color: #9ca3af;
@@ -449,7 +472,6 @@
             color: #fbbf24;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
@@ -506,9 +528,18 @@
                 max-width: 100%;
                 font-size: 0.9rem;
             }
+
+            .testimonial-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .testimonial-name {
+                margin-right: 0;
+            }
         }
 
-        /* Animation Classes */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -544,7 +575,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="nav-container">
             <div class="logo">よしぎ塾 -AI×SNSラボ-</div>
@@ -554,8 +584,8 @@
                 <li><a href="#features">特徴</a></li>
                 <li><a href="#curriculum">カリキュラム</a></li>
                 <li><a href="#community">コミュニティ</a></li>
-                <li><a href="#testimonials">モニター生の声</a></li>
-                <li><a href="https://forms.gle/b8teQiynvUJ8Ppya9" target="_blank">お申し込み</a></li>
+                <li><a href="#testimonials">サロン生の声</a></li>
+                <li><a href="https://yoshigi-academy.memberpay.jp/plan/item/wkiqwoh" target="_blank">お申し込み</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -565,7 +595,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <img class="hero-bg active" src="https://picsum.photos/1920/1080?random=1" alt="Background 1">
         <img class="hero-bg" src="https://picsum.photos/1920/1080?random=2" alt="Background 2">
@@ -577,50 +606,48 @@
             <h1 class="hero-title fade-in">よしぎ塾<br>-AI×SNSラボ-</h1>
             <p class="hero-subtitle fade-in">令和の人生攻略ツール "AIとSNS"で<br>キャリアを加速させる新時代サロン</p>
             <div class="cta-button-container fade-in">
-    <a href="https://forms.gle/b8teQiynvUJ8Ppya9" class="cta-button" target="_blank">
-        1日たった99円で<br>コミュニティに参加する
-    </a>
-</div>
+                <a href="https://yoshigi-academy.memberpay.jp/plan/item/wkiqwoh" class="cta-button" target="_blank">
+                    1日たった99円で<br>コミュニティに参加する
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Why AI SNS Section -->
     <section id="why-ai-sns" class="section why-ai-sns">
         <h2 class="section-title fade-in">なぜ令和はAIとSNSなのか</h2>
         
         <div class="fade-in">
-    <p class="section-text">
-        朝の通勤電車で ChatGPT に一行打つだけで、企画書の骨子が30秒で返ってくる。そんな時代になりました。
-    </p>
-    <p class="section-text">
-        AIを手足のように操る人は、AIにできることはAIに任せ、浮いた時間を自分の"好きや得意"に全集中。自分の力を磨き上げ、それをSNSで発信することで「この人にお願いしたい」と選ばれていく。
-    </p>
-    <p class="section-text">
-        逆にAIを使いこなせなければ、作業に追われ、時間を奪われ、土俵にも立てない。
-    </p>
-    <p class="section-text">
-        つまり「AIで時間を生み、SNSで"個"を証明する者」が抜きん出る。そんな時代だと確信しています。
-    </p>
-    <p class="section-text">
-        実際に私が育児をしながら、AIとSNSをフル活用した結果がこちらです▼
-    </p>
-    
-    <ul class="achievement-list">
-        <li>1週間かかっていた講義資料や提案書作成を1日に短縮</li>
-        <li>フォロワー数を5か月で＋40,000人（X、Threads合わせて）</li>
-        <li>運用代行のアカウントも5か月でフォロワー＋27,000人</li>
-        <li>AIで作成した1投稿でフォロワー＋1000人超え多数</li>
-        <li>渋谷109での講演など複数イベントに登壇</li>
-        <li>「SNS発信」「SNS運用代行」「イベント講演」「法人向け研修」「オンラインサロン事業立ち上げ」など複数プロジェクトを同時並行で推進</li>
-    </ul>
-    
-    <p class="section-text">
-        これらが出来たのも全て「AI」と「SNS」のおかげです。僕はAIとSNSのおかげで人生が本当に変わりました。 このコミュニティはこの「AI」と「SNS」を"低価格"で同時に学べる他にはないオンラインコミュニティになっています。
-    </p>
-</div>
+            <p class="section-text">
+                朝の通勤電車で ChatGPT に一行打つだけで、企画書の骨子が30秒で返ってくる。そんな時代になりました。
+            </p>
+            <p class="section-text">
+                AIを手足のように操る人は、AIにできることはAIに任せ、浮いた時間を自分の"好きや得意"に全集中。自分の力を磨き上げ、それをSNSで発信することで「この人にお願いしたい」と選ばれていく。
+            </p>
+            <p class="section-text">
+                逆にAIを使いこなせなければ、作業に追われ、時間を奪われ、土俵にも立てない。
+            </p>
+            <p class="section-text">
+                つまり「AIで時間を生み、SNSで"個"を証明する者」が抜きん出る。そんな時代だと確信しています。
+            </p>
+            <p class="section-text">
+                実際に私が育児をしながら、AIとSNSをフル活用した結果がこちらです▼
+            </p>
+            
+            <ul class="achievement-list">
+                <li>1週間かかっていた講義資料や提案書作成を1日に短縮</li>
+                <li>フォロワー数を5か月で＋40,000人（X、Threads合わせて）</li>
+                <li>運用代行のアカウントも5か月でフォロワー＋27,000人</li>
+                <li>AIで作成した1投稿でフォロワー＋1000人超え多数</li>
+                <li>渋谷109での講演など複数イベントに登壇</li>
+                <li>「SNS発信」「SNS運用代行」「イベント講演」「法人向け研修」「オンラインサロン事業立ち上げ」など複数プロジェクトを同時並行で推進</li>
+            </ul>
+            
+            <p class="section-text">
+                これらが出来たのも全て「AI」と「SNS」のおかげです。僕はAIとSNSのおかげで人生が本当に変わりました。 このコミュニティはこの「AI」と「SNS」を"低価格"で同時に学べる他にはないオンラインコミュニティになっています。
+            </p>
+        </div>
     </section>
 
-    <!-- Problems Section -->
     <section id="problems" class="section problems">
         <h2 class="section-title fade-in">こんな課題を感じていませんか？</h2>
         
@@ -640,7 +667,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="section features">
         <h2 class="section-title fade-in">3つの特徴</h2>
         <p class="section-description fade-in">よしぎ塾が選ばれる理由をご紹介します。他にはない独自の学習環境で、あなたの成長を全力でサポートします。</p>
@@ -670,37 +696,35 @@
         </div>
     </section>
 
-    <!-- Curriculum Section -->
     <section id="curriculum" class="section curriculum">
-    <h2 class="section-title fade-in">学べること</h2>
-    <p class="section-description fade-in">体系的に設計されたカリキュラムで、基礎から応用まで段階的にスキルアップ。実践的な課題を通じて、確実に力を身につけます。</p>
-    
-    <div class="cards-container">
-        <div class="card fade-in">
-            <img class="card-image" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-06-27%20235822-S4cH88tAgGz6EopcTyKOw0xJtbt9jL.png" alt="AIで作業時間を半分にする仕事術">
-            <div class="card-content">
-                <h3 class="card-title">AIで作業時間を半分にする仕事術</h3>
-                <p class="card-description">AIを活用した情報収集術、資料作成術、SNSの投稿作成、画像生成、LP作成など幅広いAI活用術を学べます。さらにその際に利用するプロンプトなども惜しみなくお伝えしてきます。</p>
+        <h2 class="section-title fade-in">学べること</h2>
+        <p class="section-description fade-in">体系的に設計されたカリキュラムで、基礎から応用まで段階的にスキルアップ。実践的な課題を通じて、確実に力を身につけます。</p>
+        
+        <div class="cards-container">
+            <div class="card fade-in">
+                <img class="card-image" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-06-27%20235822-S4cH88tAgGz6EopcTyKOw0xJtbt9jL.png" alt="AIで作業時間を半分にする仕事術">
+                <div class="card-content">
+                    <h3 class="card-title">AIで作業時間を半分にする仕事術</h3>
+                    <p class="card-description">AIを活用した情報収集術、資料作成術、SNSの投稿作成、画像生成、LP作成など幅広いAI活用術を学べます。さらにその際に利用するプロンプトなども惜しみなくお伝えしてきます。</p>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <img class="card-image" src="https://picsum.photos/400/250?random=11" alt="SNSを伸ばすノウハウ">
+                <div class="card-content">
+                    <h3 class="card-title">SNSを伸ばすノウハウ（X、Threadsがメイン）</h3>
+                    <p class="card-description">「投稿しているけどなかなか伸びない」「投稿が伸びてもフォローされない」といった課題を解決できるよう、プロフィールの設計から伸びる投稿作成、運用ノウハウを学べます。さらに豪華インフルエンサーとのコラボウェビナーも予定しています。</p>
+                </div>
+            </div>
+            <div class="card fade-in">
+                <img class="card-image" src="https://picsum.photos/400/250?random=12" alt="+α人間力">
+                <div class="card-content">
+                    <h3 class="card-title">＋α人間力（ビジネス基礎力）</h3>
+                    <p class="card-description">AIが進化すればするほど、使う側の人間力が試されます。特に「コミュ力」や「資料作成力」、「思考力」や「マインド」は必要不可欠です。経営コンサルや起業での経験から、僕で伝えられることは惜しみなくお伝えしていきます。このコミュニティから起業・独立する人がたくさん出てくればいいなと思っています。</p>
+                </div>
             </div>
         </div>
-        <div class="card fade-in">
-            <img class="card-image" src="https://picsum.photos/400/250?random=11" alt="SNSを伸ばすノウハウ">
-            <div class="card-content">
-                <h3 class="card-title">SNSを伸ばすノウハウ（X、Threadsがメイン）</h3>
-                <p class="card-description">「投稿しているけどなかなか伸びない」「投稿が伸びてもフォローされない」といった課題を解決できるよう、プロフィールの設計から伸びる投稿作成、運用ノウハウを学べます。さらに豪華インフルエンサーとのコラボウェビナーも予定しています。</p>
-            </div>
-        </div>
-        <div class="card fade-in">
-            <img class="card-image" src="https://picsum.photos/400/250?random=12" alt="+α人間力">
-            <div class="card-content">
-                <h3 class="card-title">＋α人間力（ビジネス基礎力）</h3>
-                <p class="card-description">AIが進化すればするほど、使う側の人間力が試されます。特に「コミュ力」や「資料作成力」、「思考力」や「マインド」は必要不可欠です。経営コンサルや起業での経験から、僕で伝えられることは惜しみなくお伝えしていきます。このコミュニティから起業・独立する人がたくさん出てくればいいなと思っています。</p>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-    <!-- Community Section -->
     <section id="community" class="section community">
         <h2 class="section-title fade-in">コミュニティ体験</h2>
         <p class="section-description fade-in">学習だけでなく、メンバー同士の交流や相互支援を通じて、一人では得られない成長体験を提供します。</p>
@@ -714,14 +738,14 @@
                 </div>
             </div>
             <div class="card fade-in">
-                <img class="card-image" src="https://picsum.photos/400/250?random=16" alt="仕事のマッチング">
+                <img class="card-image" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-08-25%20070414-KECLhuNZM0s36jKMAOoD27Zkd2ioMr.png" alt="仕事のマッチング">
                 <div class="card-content">
                     <h3 class="card-title">仕事のマッチング</h3>
                     <p class="card-description">AI関連・SNS関連など、様々な仕事を受発注できる環境を提供。学ぶだけでなく、この環境でマネタイズすることも可能です。</p>
                 </div>
             </div>
             <div class="card slide-in-right">
-                <img class="card-image" src="https://picsum.photos/400/250?random=15" alt="リアルイベント">
+                <img class="card-image" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%82%AA%E3%83%95%E4%BC%9A%EF%BC%88%E5%8B%89%E5%BC%B7%E4%BC%9A%EF%BC%89%E2%91%A0-aZMbljjV1BTDEWF876NEKQUnkBCqBs.png" alt="リアルイベント">
                 <div class="card-content">
                     <h3 class="card-title">リアルイベント</h3>
                     <p class="card-description">オフライン交流会、ワークショップ、ゲストスピーカーイベントなど、リアルな出会いと学びの機会を定期的に開催。</p>
@@ -730,46 +754,64 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
     <section id="testimonials" class="section testimonials">
-        <h2 class="section-title fade-in">モニター生の声</h2>
+        <h2 class="section-title fade-in">サロン生の声</h2>
         
         <div class="fade-in">
             <div class="testimonial-card">
-                <div class="testimonial-name">島さん</div>
-                <div class="testimonial-role">美容系インフルエンサー</div>
+                <div class="testimonial-header">
+                    <div class="testimonial-name">こうさん</div>
+                    <div class="testimonial-icon">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%81%93%E3%81%86%E3%81%95%E3%82%93-ZxKbBhYtsmsek5PZkfwaUO2MitRs9w.jpeg" alt="こうさんのアイコン">
+                    </div>
+                </div>
+                <div class="testimonial-headline">サロン全体が温かい空気に包まれていて、勉強会やオフ会がとても楽しいです！</div>
                 <div class="testimonial-text">
-                    「"若い子に刺さるワード"を選ぶのが勝負なのに、ネタが浮かばない日は半日うんうん唸って終わる――そんな悩みをよしぎ塾で相談したら、私専用にカスタマイズされた 美容特化 GPTs をまるっと作っていただきました。生成される切り口も語彙も『これ、自分じゃ絶対思いつかない！』の連続で、思わず『こんな面白いもの作ってもらっていいの!?』と声が出るほど。実際にそのプロンプトでツイートしたら インプレッション380万 を記録。バズり慣れているはずの私でも鳥肌が立つ結果でした。"AI×SNS"の破壊力をここまで体感できたのは初めて。今では企画会議の相棒として GPTs が手放せません。」
+                    AIは難しそう…と思っていましたが、よしぎ塾に入ってからは、初歩的な質問にもすぐ返事がもらえて、安心して学べています。またAIの知識だけでなく、XやThreadsの運用ノウハウまで学べるのも魅力的です。発信の仕方や伸ばし方を具体的に教えてもらえるので、実践しながら成果につなげられます。よしぎさんの人柄が本当に素晴らしく、サロン全体が温かい空気に包まれていて、オンラインの勉強会やオフ会がとても楽しいです。迷っているなら一度のぞいてみてください。
                 </div>
             </div>
 
             <div class="testimonial-card">
-                <div class="testimonial-name">平井さん</div>
-                <div class="testimonial-role">占い講師</div>
+                <div class="testimonial-header">
+                    <div class="testimonial-name">RENさん</div>
+                    <div class="testimonial-icon">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/REN%E3%81%95%E3%82%93-B77RmebKYZMioW6evcoz5AWOs4cKjh.jpeg" alt="RENさんのアイコン">
+                    </div>
+                </div>
+                <div class="testimonial-headline">入会２ヶ月で 100→620フォロワー！</div>
                 <div class="testimonial-text">
-                    「マンツーマンで講座を提供している中で、母の入院まで重なり、深夜 2 時まで X の投稿をひねり出す日々。よしぎさんが私専用の ChatGPTのプロンプトを組んでくださったおかげで、投稿案が 10 分で 5 本出るようになり、久しぶりに泣くほど感動しました。睡眠時間が増えて心も体もラクに。あまりに役立つので自分の受講生たちにも塾の存在を宣伝しまくっています。」
+                    入会時100人ほどだったフォロワーが、2か月で620人まで増加！すでにSNS経由での受注も発生しました。 よしぎさんは人柄が素晴らしく、わからないことをすぐ教えてくださり、献身的にアドバイスをしてくれます。講義以外でもプロンプトやGPTsの共有があり、実際にバズ投稿も何件か生まれました。 仲間との交流も異業種で気軽に楽しめ、インフルエンサーとの繋がりも刺激的。 「AIを学びたい」「SNSを始めたい」初心者こそ、一から安心して学べる環境です！
                 </div>
             </div>
 
             <div class="testimonial-card">
-                <div class="testimonial-name">遠藤さん</div>
-                <div class="testimonial-role">人事職</div>
+                <div class="testimonial-header">
+                    <div class="testimonial-name">MORIさん</div>
+                    <div class="testimonial-icon">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/MORI%E3%81%95%E3%82%93-RFNtBGkxj60CxDIq6XddYz4PVmLslR.jpeg" alt="MORIさんのアイコン">
+                    </div>
+                </div>
+                <div class="testimonial-headline">初歩的な質問をしても、すごくいい笑顔で教えてくれます！</div>
                 <div class="testimonial-text">
-                    「正直、ノウハウは世の中に溢れています。でもよしぎさんと話すとなぜか"やってみよう"と動ける。言葉遣いや空気感がとにかく温かく、いつも元気をもらえます。"人として信用できる" ってこういうことなんだと感じました。」
+                    「生成AIについて何もわからないけど、学んでおかないと時代に取り残されそう…」と悩んでいたタイミングで、よしぎ塾を偶然知って、思わず、飛び込みました。その結果…大満足でした！特によかったのは、オーナーのよしぎさんの人柄です。僕が素人丸出しの初歩的な質問をしても、すごくいい笑顔で楽しそうに「お！いい質問ですね！それは〜」と丁寧に教えてくださいます。前述のように初歩的な質問にも笑顔で対応してくださる一方で、セミナーやコンテンツではハイ・レベルな内容も学ぶことができます。僕自身もよしぎ塾で学んだことを活かして、Xのポスト作成に要する時間を大幅に短縮できるようになりました。このようにAIについて学びたいヒトであれば、初心者から上級者まで幅広くの方にオススメしたいサロンです！
                 </div>
             </div>
 
             <div class="testimonial-card">
-                <div class="testimonial-name">諸角さん</div>
-                <div class="testimonial-role">AIコンサルタント</div>
+                <div class="testimonial-header">
+                    <div class="testimonial-name">minacoさん</div>
+                    <div class="testimonial-icon">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/minaco%E3%81%95%E3%82%93-LVp8kQkCJgsIreK3jogATUKNwKz5XY.jpeg" alt="minacoさんのアイコン">
+                    </div>
+                </div>
+                <div class="testimonial-headline">勇気を出して一歩踏み出したら、 生成AIもSNSももっと楽しくなりました！</div>
                 <div class="testimonial-text">
-                    「クライアント向けに AI 導入支援をしている自分でも、"よしぎ塾の AI 活用術" は毎回 新しい気づきの連続でした。アイデアの企画から提案資料の作成まで、あらゆる工程で AI をフル活用。しかもプロンプトが洗練されていて、コピーして少し調整するだけで即実務レベルになるのが本当にありがたい。独立を決めたばかりで吸収モード全開の私にとっては、どれも"そのままクライアントワークに転用できる"ネタばかりでした。さらに、よしぎさんの 明るい人柄に毎回元気をもらえる のも大きな価値。『学びとエネルギー補給が同時にできる場』――まさにそんな場所です。いつもありがとうございます！」
+                    生成AIについてさらに深く学びたいと思い、このコミュニティに入りました。SNSはほとんど触っていない状態でした。正直、最初は「どんな人がいるんだろう…」と不安で、参加するのが少し怖かったのですが、思い切って勇気を出して参加してみたら、雰囲気が温かくて楽しくて参加して本当に良かったと思いました。実際に入ってみると、オンラインの勉強会やオフラインの交流会を通じて、生成AIの新たな機能や生成AIとSNSを絡めた使い方など、自分では気づかなかった活用法を学ぶことができ、とっても勉強になっています。よしぎ塾は、皆さんが本当に温かく、前向きな方ばかり。特によしぎさんが明るく前向きでおちゃめな方なので、そのエネルギーに触れるたびに「入ってよかった」と思います。また、苦手だったSNSについても、プロフィール作りを学んでから自分なりの世界観を表現することが楽しくなりました。よしぎさん特製のGPTsの活用で、投稿のハードルがぐっと下がって、SNSが身近なものになりました。生成AIに興味がある方、もっと活用したい方という方に、とてもおすすめできるコミュニティです！
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
     <section id="pricing" class="section pricing">
         <h2 class="section-title fade-in">料金プラン</h2>
         <p class="section-description fade-in">良心的な価格で、質の高い学習環境を提供します。</p>
@@ -784,14 +826,13 @@
                 <li>✓ 24時間質問サポート</li>
             </ul>
             <div class="cta-button-container">
-    <a href="https://forms.gle/b8teQiynvUJ8Ppya9" class="cta-button" target="_blank">
-        1日たった99円で<br>コミュニティに参加する
-    </a>
-</div>
+                <a href="https://yoshigi-academy.memberpay.jp/plan/item/wkiqwoh" class="cta-button" target="_blank">
+                    1日たった99円で<br>コミュニティに参加する
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-links">
@@ -799,7 +840,7 @@
                 <a href="#problems">課題</a>
                 <a href="#curriculum">カリキュラム</a>
                 <a href="#community">コミュニティ</a>
-                <a href="#testimonials">モニター生の声</a>
+                <a href="#testimonials">サロン生の声</a>
                 <a href="#pricing">料金</a>
                 <a href="#">プライバシーポリシー</a>
                 <a href="#">利用規約</a>
@@ -810,7 +851,6 @@
     </footer>
 
     <script>
-        // Hamburger Menu
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
 
@@ -819,13 +859,11 @@
             navMenu.classList.toggle('active');
         });
 
-        // Close menu when clicking on a link
         document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }));
 
-        // Hero Background Image Rotation
         const heroImages = document.querySelectorAll('.hero-bg');
         let currentImageIndex = 0;
 
@@ -837,7 +875,6 @@
 
         setInterval(rotateHeroImages, 5000);
 
-        // Particle Animation
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
@@ -855,7 +892,6 @@
 
         createParticles();
 
-        // Scroll Animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -869,12 +905,10 @@
             });
         }, observerOptions);
 
-        // Observe all animation elements
         document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
             observer.observe(el);
         });
 
-        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -888,7 +922,6 @@
             });
         });
 
-        // Header background on scroll
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
             if (window.scrollY > 100) {
@@ -900,7 +933,6 @@
             }
         });
 
-        // Initialize animations for elements in viewport
         setTimeout(() => {
             document.querySelectorAll('.hero .fade-in').forEach((el, index) => {
                 setTimeout(() => {
